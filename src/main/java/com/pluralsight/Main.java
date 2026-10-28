@@ -5,18 +5,53 @@ import java.util.*;
 public class Main {
 
     static ArrayList<Product> inventory = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         getInventory();
-        displayInventory();
+        mainDisplay();
     }
 
     private static void displayInventory() {
-        System.out.println("We carry the following inventory: ");
+        print("We carry the following inventory: ");
         for (Product p: inventory) {
-            System.out.printf("id: %s name: %s - Price: $%.2f Count: %d%n",
-                    p.getId(), p.getName(), p.getPrice(),p.getCount());
+            print(String.format("id: %s name: %s - Price: $%.2f Count: %d",
+                    p.getId(), p.getName(), p.getPrice(),p.getCount()));
         }
+    }
+
+    private static void mainDisplay(){
+        print("""
+                What do you want to do?
+                1- List all products
+                2- Lookup a product by its id
+                3- Find all products within a price range
+                4- Add a new product
+                5- Quit the application""");
+        System.out.print("Enter command: ");
+        String commandInput = "";
+
+        while (commandInput.isEmpty()) {
+            commandInput = scanner.nextLine();
+            boolean correctCommand=false;
+
+            for (int i = 1; i < 6; i++) {
+                correctCommand=commandInput.equals(String.valueOf(i));
+                if (correctCommand) {break;}
+            }
+            if (!correctCommand) {
+                commandInput="";
+                print("Error Invalid command found! Please enter a valid command.");
+                System.out.print("Enter command: ");
+            }
+        }
+
+        switch (commandInput){
+            case "1" -> displayInventory();
+            default -> print("program has been ended");
+        }
+
+        if (!commandInput.equals("5")) {mainDisplay();}
     }
 
     private static void getInventory() {
@@ -31,4 +66,6 @@ public class Main {
         inventory.add(product4);
         inventory.add(product5);
     }
+
+    private static void print(String text) {System.out.println(text);}
 }
