@@ -20,7 +20,7 @@ public class Main {
         }
     }
 
-    private static void mainDisplay(){
+    private static void mainDisplay() {
         print("""
                 What do you want to do?
                 1- List all products
@@ -28,21 +28,20 @@ public class Main {
                 3- Find all products within a price range
                 4- Add a new product
                 5- Quit the application""");
-        System.out.print("Enter command: ");
         String commandInput = "";
 
         while (commandInput.isEmpty()) {
+            System.out.print("Enter command: ");
             commandInput = scanner.nextLine();
-            boolean correctCommand=false;
+            boolean correctCommand = false;
 
-            for (int i = 1; i < 6; i++) {
-                correctCommand=commandInput.equals(String.valueOf(i));
+            for (int i = 1; i <= 5; i++) {
+                correctCommand = commandInput.equals(String.valueOf(i));
                 if (correctCommand) {break;}
             }
             if (!correctCommand) {
                 commandInput="";
                 print("Error Invalid command found! Please enter a valid command.");
-                System.out.print("Enter command: ");
             }
         }
 
@@ -53,8 +52,25 @@ public class Main {
             case "4" -> {}
             default -> print("program has been ended");
         }
+        if (!commandInput.equals("5")) {
+            System.out.print("""
+                    enter R to return to main
+                    enter E to end program"""+" ");
+            commandInput = "";
 
-        if (!commandInput.equals("5")) {mainDisplay();}
+            while (commandInput.isEmpty()) {
+                System.out.print("Enter command: ");
+                commandInput = scanner.nextLine().toLowerCase();
+                boolean correctCommand;
+                correctCommand = commandInput.equals("r") || commandInput.equals("e");
+
+                if (!correctCommand) {
+                    commandInput = "";
+                    print("Error Invalid command found! Please enter a valid command.");
+                } else if (commandInput.equals("r")) {mainDisplay();}
+            }
+        }
+        scanner.close();
     }
 
     private static void getInventory() {
