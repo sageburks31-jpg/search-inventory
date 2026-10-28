@@ -48,6 +48,9 @@ public class Main {
 
         switch (commandInput){
             case "1" -> displayInventory();
+            case "2" -> {}
+            case "3" -> {}
+            case "4" -> {}
             default -> print("program has been ended");
         }
 
